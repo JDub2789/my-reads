@@ -11,7 +11,6 @@ class Read extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
-      console.log(books)
     })
   }
 
@@ -20,8 +19,6 @@ class Read extends Component {
       (currentBook.shelf === 'read')))
 
     return (
-        <div className="list-books-content">
-          <div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
@@ -31,7 +28,15 @@ class Read extends Component {
                   <div className="book">
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${currentBook.imageLinks.smallThumbnail})` }}></div>
-                      <BookMoveButton />
+                      <div className="book-shelf-changer">
+                        <select onChange={BooksApp.changeShelf}>
+                          <option value="none" disabled>Move to...</option>
+                          <option value="currentlyReading">Currently Reading</option>
+                          <option value="wantToRead">Want to Read</option>
+                          <option value="read">Read</option>
+                          <option value="none">None</option>
+                        </select>
+                      </div>
                     </div>
                     <div className="book-title">{currentBook.title}</div>
                     <div className="book-authors">{currentBook.authors}</div>
@@ -42,8 +47,6 @@ class Read extends Component {
                 </ol>
               </div>
             </div>
-          </div>
-        </div>
       )
 }
 }
