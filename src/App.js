@@ -10,10 +10,8 @@ const customHistory = createBrowserHistory()
 
 class BooksApp extends Component {
   state = {
-    books: []
+    
   }
-
-
 
   render() {
     return (
