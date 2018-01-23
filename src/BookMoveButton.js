@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import BooksApp from './App.js'
+
 class BookMoveButton extends Component {
 
   changeShelf = (event) => {

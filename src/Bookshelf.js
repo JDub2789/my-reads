@@ -8,15 +8,21 @@ class Bookshelf extends Component {
     books: []
   }
 
-  getShelf = (event) => {
-    let newShelf = event.target.value
+  getShelf = (value, book) => {
+    let newShelf = value
+    let bookShelf = book
     console.log(newShelf)
-    // changeShelf(newShelf)
+    console.log(bookShelf)
+    this.changeShelf(bookShelf, newShelf)
   }
 
-  // changeShelf(book, shelf) => {
-  //   BooksAPI.update(book, shelf)
-  // }
+  changeShelf(b, s) {
+    BooksAPI.update(b, s).then((s) => {
+      this.setState((s) => ({
+        books: b.s = s
+      }))
+    })
+  }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -51,7 +57,7 @@ class Bookshelf extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${wantToReadBook.imageLinks.smallThumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={this.getShelf}>
+                              <select onChange={(event, book) => this.getShelf(event.target.value, {wantToReadBook})}>
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
