@@ -25,36 +25,6 @@ class WantToRead extends Component {
     }))
   }
 
-
-
-    // const updatedBook = this.state.books.filter(book => book.id === selectedBook.wantToReadBook.id)
-    // updatedBook[0].shelf = value
-    // console.log(updatedBook)
-
-
-
-
-    // this.setState((state) => ({
-    //   books: state.books.filter(book => book.id === selectedBook.id)
-    // }))
-
-    // let newShelf = value
-    // let selectedBook = book
-    // console.log(newShelf)
-    // console.log(selectedBook)
-    // this.changeShelf(selectedBook, newShelf)
-  // }
-
-  // changeShelf(b, s) {
-  //   // const filteredList
-  //   BooksAPI.getAll().then(books.filter(book => book.id === b.id) (
-  //     book.shelf = newShelf)
-  //     // this.setState(() => ({
-  //     //   books: filteredList
-  //     )}
-
-
-
   render() {
     const wantToRead = this.state.books.filter((wantToReadBooks) => (
       (wantToReadBooks.shelf === 'wantToRead')))

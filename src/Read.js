@@ -15,14 +15,6 @@ class Read extends Component {
     }))
   }
 
-  changeShelf(b, s) {
-    BooksAPI.update(b, s).then((s) => {
-      this.setState((s) => ({
-        books: b.s = s
-      }))
-    })
-  }
-
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
