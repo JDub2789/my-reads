@@ -25,6 +25,7 @@ class BookSearch extends Component {
     if (query) {
       BooksAPI.search(query).then((response) => {
         this.setState({availableBooks: response})
+        console.log(this.state.availableBooks)
       })
     }
 
@@ -45,7 +46,7 @@ class BookSearch extends Component {
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                     <div className="book-shelf-changer">
-                      <select defaultValue={book.shelf} onChange={(event, selectedBook) => this.getShelf(event.target.value, {book})}>
+                      <select defaultValue="none" onChange={(event, selectedBook) => this.getShelf(event.target.value, {book})}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -56,6 +57,7 @@ class BookSearch extends Component {
                   </div>
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.authors}</div>
+                  <div className="book-authors">{book.id}</div>
                 </div>
               </li>
             ))}
