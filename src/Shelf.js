@@ -12,11 +12,19 @@ class Shelf extends Component {
     })
   }
 
+  getShelf = (value, selectedBook) => {
+    ((this.state.books.filter(book => book.id === selectedBook.book.id))[0].shelf = value).then(() => {
+      this.setState(() => ({
+        books: this.state.books
+    })
+  })
+)
+}
+
   render() {
     const thisShelf = this.state.books.filter((book) => (
       (book.shelf === this.props.shelf)))
 
-    console.log(this.props.shelf)
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.title}</h2>
@@ -28,7 +36,7 @@ class Shelf extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select onChange={(event, selectedBook) => this.getShelf(event.target.value, {book})} defaultValue="read">
+                    <select onChange={(event, selectedBook) => this.getShelf(event.target.value, {book})} defaultValue={this.props.shelf}>
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>

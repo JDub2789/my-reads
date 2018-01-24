@@ -12,12 +12,12 @@ class Bookshelf extends Component {
     books: []
   }
 
-  getShelf = (value, book) => {
-    let newShelf = value
-    let bookShelf = book
-    console.log(newShelf)
-    console.log(bookShelf)
-    this.changeShelf(bookShelf, newShelf)
+  getShelf = (value, selectedBook) => {
+    (this.state.books.filter(book => book.id === selectedBook.readBook.id))[0].shelf = value
+    console.log(this.state.books)
+    this.setState(state => ({
+      books: this.state.books
+    }))
   }
 
   componentDidMount() {
