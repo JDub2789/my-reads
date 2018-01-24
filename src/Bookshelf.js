@@ -12,12 +12,9 @@ class Bookshelf extends Component {
     books: []
   }
 
-  getShelf = (value, selectedBook) => {
-    (this.state.books.filter(book => book.id === selectedBook.readBook.id))[0].shelf = value
-    console.log(this.state.books)
-    this.setState(state => ({
-      books: this.state.books
-    }))
+  changeShelf = (newBooks) => {
+    console.log(newBooks)
+    this.setState({books: newBooks})
   }
 
   componentDidMount() {
@@ -33,9 +30,9 @@ class Bookshelf extends Component {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
-          <Shelf shelf='wantToRead' title='Want to Read' />
-          <Shelf shelf='currentlyReading' title='Currently Reading' />
-          <Shelf shelf='read' title='Read' />
+          <Shelf books={this.state.books} shelf='wantToRead' title='Want to Read' onGetShelf={this.changeShelf}/>
+          <Shelf books={this.state.books} shelf='currentlyReading' title='Currently Reading' />
+          <Shelf books={this.state.books} shelf='read' title='Read' />
 
           <div className="open-search">
             <Link to="/search">Add a book</Link>

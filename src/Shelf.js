@@ -2,27 +2,26 @@ import React, {Component} from 'react'
 import * as BooksAPI from './BooksAPI'
 
 class Shelf extends Component {
-  state = {
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-    })
-  }
+  // state = {
+  //   books: []
+  // }
+  //
+  // componentDidMount() {
+  //   BooksAPI.getAll().then((books) => {
+  //     this.setState({books})
+  //   })
+  // }
 
   getShelf = (value, selectedBook) => {
-    ((this.state.books.filter(book => book.id === selectedBook.book.id))[0].shelf = value).then(() => {
-      this.setState(() => ({
-        books: this.state.books
-    })
-  })
-)
-}
+    const allBooks = this.props.books.filter((book) => book.id !== selectedBook.book.id)
+    const changedBook = this.props.books.filter(book => book.id === selectedBook.book.id)
+    changedBook[0].shelf = value
+    allBooks.push(changedBook[0])
+    this.props.onGetShelf(allBooks)
+  }
 
   render() {
-    const thisShelf = this.state.books.filter((book) => (
+    const thisShelf = this.props.books.filter((book) => (
       (book.shelf === this.props.shelf)))
 
     return (
