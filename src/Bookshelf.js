@@ -1,16 +1,15 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import WantToRead from './WantToRead'
-import CurrentlyReading from './CurrentlyReading'
-import Read from './Read'
+// import WantToRead from './WantToRead'
+// import CurrentlyReading from './CurrentlyReading'
+// import Read from './Read'
+import Shelf from './Shelf'
 import * as BooksAPI from './BooksAPI'
 
 class Bookshelf extends Component {
 
   state = {
-    books: [],
-    shelf: '',
-    shelfTitle: ''
+    books: []
   }
 
   getShelf = (value, book) => {
@@ -34,9 +33,10 @@ class Bookshelf extends Component {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
-            <WantToRead />
-            <CurrentlyReading />
-            <Read />
+          <Shelf shelf='wantToRead' title='Want to Read' />
+          <Shelf shelf='currentlyReading' title='Currently Reading' />
+          <Shelf shelf='read' title='Read' />
+
           <div className="open-search">
             <Link to="/search">Add a book</Link>
           </div>
