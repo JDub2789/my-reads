@@ -8,7 +8,9 @@ import * as BooksAPI from './BooksAPI'
 class Bookshelf extends Component {
 
   state = {
-    books: []
+    books: [],
+    shelf: '',
+    shelfTitle: ''
   }
 
   getShelf = (value, book) => {

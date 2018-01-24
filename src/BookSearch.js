@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import escapeRegExp from 'escape-string-regexp'
+// import escapeRegExp from 'escape-string-regexp'
 
 class BookSearch extends Component {
 
   state = {
     availableBooks: [],
     query: ''
+
   }
 
   updateQuery = (query) => {
@@ -34,17 +35,13 @@ class BookSearch extends Component {
 
   render() {
     const {query} = this.state
-    const {availableBooks} = this.state
-
-    let showingBooks
+    
     if (query) {
       BooksAPI.search(query).then((response) => {
-        showingBooks = response
-        console.log(showingBooks)
+        this.setState({
+          availableBooks: response
+        })
       })
-    } else {
-      showingBooks = this.state.availableBooks
-      console.log(showingBooks)
     }
 
     return (
@@ -58,7 +55,7 @@ class BookSearch extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {showingBooks.map((book) => (
+            {this.state.availableBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
