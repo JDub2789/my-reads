@@ -1,20 +1,32 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 
 class BookSearch extends Component {
 
+  state = {
+    availableBooks: [],
+    query: ''
+  }
   updateQuery = (query) => {
-    this.props.onUpdateQuery(query)
+    this.setState({ query: query } )
   }
 
   getShelf = (value, selectedBook) => {
-    const newBook = (this.props.books.filter(book => book.id === selectedBook.book.id))
+    const newBook = (this.state.availableBooks.filter(book => book.id === selectedBook.book.id))
     newBook[0].shelf = value
-    this.props.onGetShelf(newBook[0])
+    this.props.onGetShelf(newBook[0], value)
   }
 
   render() {
+
+    const {query} = this.state
+
+    if (query) {
+      BooksAPI.search(query).then((response) => {
+        this.setState({availableBooks: response})
+      })
+    }
 
     return (
       <div className="search-books">
@@ -27,7 +39,7 @@ class BookSearch extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.books.map((book) => (
+            {this.state.availableBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">

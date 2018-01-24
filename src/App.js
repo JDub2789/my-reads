@@ -8,19 +8,13 @@ import * as BooksAPI from './BooksAPI'
 class BooksApp extends Component {
 
   state = {
-    books: [],
-    availableBooks: [],
-    query: ''
+    books: []
   }
 
-  changeShelf = (newBooks) => {
-    this.setState({books: newBooks})
-  }
-
-  changeShelfSearch = (newBook) => {
-    console.log(this.state.books)
-    this.setState({books: this.state.books.push(newBook)})
-    console.log(this.state.books)
+  changeShelfSearch = (b, s) => {
+    BooksAPI.update(b, s).then((books) => {
+      this.setState({books: this.state.books.push(b)})
+    })
   }
 
   componentDidMount() {
@@ -29,18 +23,7 @@ class BooksApp extends Component {
     })
   }
 
-  updateQuery = (query) => {
-    this.setState({ query: query } )
-  }
-
   render() {
-    const {query} = this.state
-
-    if (query) {
-      BooksAPI.search(query).then((response) => {
-        this.setState({availableBooks: response})
-      })
-    }
 
     return (
         <div className="app">
@@ -48,10 +31,9 @@ class BooksApp extends Component {
               <Bookshelf books={this.state.books}/> )}
              />
             <Route exact path="/search" render={({history}) => (
-              <BookSearch onUpdateQuery={this.updateQuery} onGetShelf={(newBook) =>
+              <BookSearch onUpdateQuery={this.updateQuery} onGetShelf={(newBook, newShelf) =>
                 {
-                  this.changeShelfSearch(newBook)
-                  history.push('/')
+                  this.changeShelfSearch(newBook, newShelf)
                 }} books={this.state.availableBooks} />)}
             />
           </div>

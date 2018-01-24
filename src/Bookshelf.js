@@ -9,8 +9,12 @@ class Bookshelf extends Component {
     books: []
   }
 
-  changeShelf = (newBooks) => {
-    this.setState({books: newBooks})
+  changeShelf = (b, s) => {
+    BooksAPI.update(b, s).then((response) => {
+      this.state.books.push(response)
+      // console.log(newBooks)
+      this.setState({books: this.state.books})
+    })
   }
 
   componentDidMount() {

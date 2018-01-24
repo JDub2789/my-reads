@@ -3,11 +3,11 @@ import React, {Component} from 'react'
 class Shelf extends Component {
 
   getShelf = (value, selectedBook) => {
-    const allBooks = this.props.books.filter((book) => book.id !== selectedBook.book.id)
+    // const allBooks = this.props.books.filter((book) => book.id !== selectedBook.book.id)
     const changedBook = this.props.books.filter(book => book.id === selectedBook.book.id)
     changedBook[0].shelf = value
-    allBooks.push(changedBook[0])
-    this.props.onGetShelf(allBooks)
+    // allBooks.push(changedBook[0])
+    this.props.onGetShelf(changedBook[0], value)
   }
 
   render() {
