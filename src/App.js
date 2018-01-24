@@ -31,7 +31,7 @@ class BooksApp extends Component {
               <Bookshelf books={this.state.books}/> )}
              />
             <Route exact path="/search" render={({history}) => (
-              <BookSearch onUpdateQuery={this.updateQuery} onGetShelf={(newBook, newShelf) =>
+              <BookSearch shelvedBooks={this.state.books} onUpdateQuery={this.updateQuery} onGetShelf={(newBook, newShelf) =>
                 {
                   this.changeShelfSearch(newBook, newShelf)
                 }} books={this.state.availableBooks} />)}
