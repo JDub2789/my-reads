@@ -1,16 +1,6 @@
 import React, {Component} from 'react'
-import * as BooksAPI from './BooksAPI'
 
 class Shelf extends Component {
-  // state = {
-  //   books: []
-  // }
-  //
-  // componentDidMount() {
-  //   BooksAPI.getAll().then((books) => {
-  //     this.setState({books})
-  //   })
-  // }
 
   getShelf = (value, selectedBook) => {
     const allBooks = this.props.books.filter((book) => book.id !== selectedBook.book.id)
@@ -45,8 +35,7 @@ class Shelf extends Component {
                   </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors}</div>
-                <div className="book-authors">{book.shelf}</div>
+                <div className="book-authors">{book.authors[0]}{book.authors.length > 1 && (` & ${book.authors[1]}`)}</div>
                 </div>
               </li>
           ))}

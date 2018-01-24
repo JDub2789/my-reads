@@ -10,25 +10,6 @@ class BooksApp extends Component {
 
   }
 
-
-
-  changeShelf = (event) => {
-    // console.log('clicked')
-    newShelf = event.target.value
-    if (this.props.changedShelf)
-      this.props.changedShelf(newShelf)
-    console.log(newShelf)
-    console.log(this.props.changedShelf)
-  }
-
-  moveBook(book, shelf) {
-    BooksAPI.update(book, shelf).then(book => {
-      this.setState(state => ({
-        shelf: newShelf
-      }))
-    })
-  }
-
   render() {
     return (
         <div className="app">
