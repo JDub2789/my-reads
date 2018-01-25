@@ -23,24 +23,25 @@ class BookSearch extends Component {
   }
 
   filterBooks(response) {
-    response.map((book) => {
-      for (let item of this.props.shelvedBooks ) {
-        book.shelf = 'none'
-        if (item.id === book.id)  {
-          book.shelf = item.shelf
-          break
+    if (response.length > 0) {
+      response.map((book) => {
+        for (let item of this.props.shelvedBooks ) {
+          book.shelf = 'none'
+          if (item.id === book.id)  {
+            book.shelf = item.shelf
+            break
+          }
         }
-      }
-    })
-    this.setState({availableBooks: response})
+      })
+      this.setState({availableBooks: response})
+    }
+
   }
 
   render() {
 
-    const {query} = this.state
-
-    if (query) {
-      BooksAPI.search(query).then((response) => {
+    if (this.state.query) {
+      BooksAPI.search(this.state.query).then((response) => {
         this.filterBooks(response)
       })
     }
@@ -60,7 +61,7 @@ class BookSearch extends Component {
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.imageLinks && (`url(${book.imageLinks.smallThumbnail})`) }}></div>
                     <div className="book-shelf-changer">
                       <select defaultValue={book.shelf} onChange={(event, selectedBook) => this.getShelf(event.target.value, {book})}>
                         <option value="none" disabled>Move to...</option>
@@ -72,7 +73,7 @@ class BookSearch extends Component {
                     </div>
                   </div>
                   <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.authors}</div>
+                  <div className="book-authors">{book.authors && (`${book.authors}`)}</div>
                 </div>
               </li>
             ))}
