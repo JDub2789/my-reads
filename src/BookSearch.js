@@ -8,8 +8,12 @@ class BookSearch extends Component {
     availableBooks: [],
     query: ''
   }
+
   updateQuery = (query) => {
-    this.setState({ query: query } )
+  this.setState({ query: query } );
+  BooksAPI.search(query).then((response) => {
+    this.filterBooks(response)
+  })
   }
 
   getShelf = (value, selectedBook) => {
@@ -19,18 +23,16 @@ class BookSearch extends Component {
   }
 
   filterBooks(response) {
-    const filteredBooks = this.props.shelvedBooks.forEach(shelvedBook => {
-      response.map((book) => {
-        if (book.id === shelvedBook.id) {
-          book.shelf = shelvedBook.shelf
-        } else {
-          book.shelf = "none"
+    response.map((book) => {
+      for (let item of this.props.shelvedBooks ) {
+        book.shelf = 'none'
+        if (item.id === book.id)  {
+          book.shelf = item.shelf
+          break
         }
-        return book
-      })
-      // this.setState({availableBooks: filteredBooks})
-      console.log(filteredBooks) //undefined :(
+      }
     })
+    this.setState({availableBooks: response})
   }
 
   render() {
@@ -80,6 +82,5 @@ class BookSearch extends Component {
     )
   }
 }
-
 
 export default BookSearch
