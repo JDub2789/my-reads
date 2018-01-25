@@ -32,6 +32,7 @@ class BookSearch extends Component {
             break
           }
         }
+        return book
       })
       this.setState({availableBooks: response})
     }

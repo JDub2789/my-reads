@@ -3,10 +3,8 @@ import React, {Component} from 'react'
 class Shelf extends Component {
 
   getShelf = (value, selectedBook) => {
-    // const allBooks = this.props.books.filter((book) => book.id !== selectedBook.book.id)
     const changedBook = this.props.books.filter(book => book.id === selectedBook.book.id)
     changedBook[0].shelf = value
-    // allBooks.push(changedBook[0])
     this.props.onGetShelf(changedBook[0], value)
   }
 
@@ -35,7 +33,7 @@ class Shelf extends Component {
                   </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors[0]}{book.authors.length > 1 && (` & ${book.authors[1]}`)}</div>
+                <div className="book-authors">{book.authors && (`${book.authors}`)}</div>
                 </div>
               </li>
           ))}
